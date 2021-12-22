@@ -10,10 +10,10 @@ using namespace std;
 
 class TCalculator
 {
-	string expr;             // выражение в инфиксной форме
-	string postfix;          // выражение в постфиксной форме
-	TStack <char> st_c;      // стэк для операций
-	TStack <double> st_d;    // стек для чисел 
+	string expr;             
+	string postfix;          
+	TStack <char> st_c;      
+	TStack <double> st_d;     
 
 
 public:
@@ -91,7 +91,7 @@ public:
 			if (isOperator(postfix[i]))
 			{
 				if (st_d.Empty())
-					throw "стек пуст";
+					throw "Г±ГІГҐГЄ ГЇГіГ±ГІ";
 				double b = st_d.Pop();
 				double a = st_d.Pop();
 				switch (postfix[i])
