@@ -49,6 +49,21 @@ TEST(TCalculator, correct_power_calculater) {
 	c.SetExpr("3^2");
 	EXPECT_EQ(9, c.Calc());
 }
+TEST(TCalculator, correct_sin_calculater) {
+	TCalculator c;
+	c.SetExpr("sin(0)");
+	EXPECT_EQ(0, c.Calc());
+}
+TEST(TCalculator, correct_cos_calculater) {
+	TCalculator c;
+	c.SetExpr("cos(0)");
+	EXPECT_EQ(1, c.Calc());
+}
+TEST(TCalculator, correct_tan_calculater) {
+	TCalculator c;
+	c.SetExpr("tan(0)");
+	EXPECT_EQ(0, c.Calc());
+}
 TEST(TCalculator, correct_hard_calculater) {
 	TCalculator c;
 	c.SetExpr("(4+3)*4/2-((3^2*2)/6)");
