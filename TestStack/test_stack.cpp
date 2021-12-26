@@ -8,7 +8,7 @@ TEST(TStack, cant_create_stack_with_negative_size)
 {
 	ASSERT_ANY_THROW(TStack<int> m(-5));
 }
-TEST(TStack, cant_push_in_stack)
+TEST(TStack, can_push_in_stack)
 {
 	TStack<int> m(10);
 	ASSERT_NO_THROW(m.Push(3));

@@ -13,7 +13,7 @@ void main()
 	TCalculator cal;
 	cout << "-------------------" << endl;
 	cout << "Калькулятор" << endl;
-	ex = "cos(0)";
+	ex = "40+9";
 	cal.SetExpr(ex);
 	cal.ToPostfix();
 	cal.CalcPostfix();

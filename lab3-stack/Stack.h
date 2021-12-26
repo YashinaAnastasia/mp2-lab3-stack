@@ -17,7 +17,7 @@ public:
 	{
 		if ((_Size <= 0) || (_Size > 1000))
 		{
-			throw "некоретный размер стека";
+			throw "wrong size of stack";
 		}
 		else
 		{
@@ -43,11 +43,11 @@ public:
 	bool operator!=(const TStack& s);
 	bool Empty();              
 	bool Full();               
-	void Clear();              
-
+	void Clear();           
+	void Push(const T& n);
 	T Top();               
 	T Pop();                  
-	void Push(const T& n);    
+
 };
 
 
@@ -141,7 +141,7 @@ template <class T>
 T TStack<T>::Top()
 {
 	if (Empty())
-		throw "стек пуст";
+		throw "stack is empty";
 	else
 		return mas[NumLast];
 }
@@ -150,7 +150,7 @@ template <class T>
 T TStack<T>::Pop()
 {
 	if (Empty())
-		throw NumLast;
+		throw "stack is empty";
 	else
 		return mas[NumLast--];
 
@@ -160,7 +160,7 @@ template <class T>
 void TStack<T>::Push(const T& n)
 {
 	if (Full())
-		throw "стек полон";
+		throw "stack is full";
 	else
 	mas[++NumLast] = n;
 

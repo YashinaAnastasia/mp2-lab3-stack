@@ -517,15 +517,17 @@ private: System::Void button14_Click(System::Object^ sender, System::EventArgs^ 
 	TCalculator calc;
 	calc.SetExpr(infix);
 	double res;
+	if (calc.CheckBracketsNum()) {
 	try {
 		res = calc.Calc();
 		label1->Text = Convert::ToString(res);
 	}
-	catch (int a) {
-		label1->Text = "uncorrect";
+	catch (...) {
+		MessageBox::Show("incorrect input");
 	}
-	catch (char b) {
-		label1->Text = "uncorrect";
+	}
+	else {
+		MessageBox::Show("incorrect brackets");
 	}
 	;
 	textBox1->Text = "";

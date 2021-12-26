@@ -21,6 +21,32 @@ public:
 	{
 		expr = _expr;
 	}
+	bool CheckBracketsNum()
+	{
+		int size = expr.size();
+		TStack<char> stack(size);
+		for (int i = 0; i < size; i++)
+		{
+			if (expr.at(i) == '(')
+				stack.Push('(');
+			try
+			{
+				if (expr.at(i) == ')')
+					stack.Pop();
+			}
+			catch (...)
+			{
+				cout << "')' more than '(' " << '\n';
+				return 0;
+			}
+		}
+		if (!stack.Empty())
+		{
+			cout << "'(' more than ')' " << '\n';
+			return 0;
+		}
+		return 1;
+	}
 	int Priority(char c)
 	{
 		int p;
@@ -70,14 +96,6 @@ public:
 
 		return func == "cos" || func == "sin" || func == "tan";
 	}
-	std::string getFunction(string input, int start) {
-		string func = "";
-		int i = start;
-		while (input[i] != '(') {
-			func += input[i++];
-		}
-		return func;
-	}
 	double CalcPostfix()
 	{
 
@@ -91,7 +109,7 @@ public:
 			if (isOperator(postfix[i]))
 			{
 				if (st_d.Empty())
-					throw "ñòåê ïóñò";
+					throw "stack empty";
 				double b = st_d.Pop();
 				double a = st_d.Pop();
 				switch (postfix[i])
@@ -101,12 +119,18 @@ public:
 				case '*': st_d.Push(a * b); break;
 				case '/': st_d.Push(a / b); break;
 				case '^': st_d.Push(pow(a, b)); break;
-				case 's':st_d.Push(sin(st_d.Pop()));break;
-				case 'c':st_d.Push(cos(st_d.Pop()));break;
-				case 't':st_d.Push(tan(st_d.Pop()));break;
 				default: throw 0; break;
 				}
 
+			}
+			if (isFunction(postfix, i)) {
+				switch (st_c.Pop())
+				{
+				case 's':st_d.Push(sin(st_d.Pop()));break;
+				case 'c':st_d.Push(cos(st_d.Pop()));break;
+				case 't':st_d.Push(tan(st_d.Pop()));break;
+				default:throw 0;break;
+				}
 			}
 		}
 		return st_d.Pop();
@@ -124,10 +148,12 @@ public:
 				double num = stod(&infix[i], &ind);
 				st_d.Push(num);
 				i += ind - 1;
+				continue;
 			}
 			if (infix[i] == '(')
 			{
 				st_c.Push('(');
+				continue;
 
 			}
 			if (infix[i] == 's' || infix[i] == 'c' || infix[i] == 't')
@@ -151,7 +177,7 @@ public:
 					case'-':st_d.Push(a - b);break;
 					case'*':st_d.Push(a * b);break;
 					case'/':if (b == 0)throw "incorrect expr";
-						st_d.Push(a / b);break;
+						else st_d.Push(a / b);break;
 					case'^':st_d.Push(pow(a, b));break;
 					default:break;
 					}
@@ -162,6 +188,7 @@ public:
 				case 't':st_d.Push(tan(st_d.Pop()));break;
 				default:break;
 				}
+				continue;
 			}
 
 			if (isOperator(infix[i]))
@@ -175,12 +202,14 @@ public:
 					case '+': st_d.Push(a + b); break;
 					case '-': st_d.Push(a - b); break;
 					case '*': st_d.Push(a * b); break;
-					case '/': st_d.Push(a / b); break;
+					case '/': if (b == 0)throw "incorrect expr";
+						else st_d.Push(a / b); break;
 					case '^': st_d.Push(pow(a, b)); break;
 					default:throw 0;break;
 					}
 				}
 				st_c.Push(infix[i]);
+				continue;
 			}
 			if (isFunction(infix, i)) {
 				switch (st_c.Pop())
@@ -232,6 +261,8 @@ public:
 				}
 				st_c.Push(infix[i]);
 			}
+			else
+				throw "Unknown function";
 		}
 		return postfix;
 	}
