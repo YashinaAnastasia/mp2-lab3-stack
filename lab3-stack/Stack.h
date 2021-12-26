@@ -11,7 +11,6 @@ private:
 	int MaxSize;
 	int NumLast;
 	T* mas;   
-
 public:
 	TStack(int _Size = 10)
 	{

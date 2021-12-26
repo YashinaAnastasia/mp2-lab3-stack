@@ -83,18 +83,15 @@ TEST(TCalculator, correct_two_brackates) {
 TEST(TCalculator, uncorrect_brackate) {
 	TCalculator m;
 	m.SetExpr("(2+(2)");
-
 	ASSERT_ANY_THROW(m.Calc());
 }
 TEST(TCalculator, uncorrect_operand) {
 	TCalculator m;
 	m.SetExpr("2 2");
-
 	ASSERT_ANY_THROW(m.Calc());
 }
 TEST(TCalculator, uncorrect_operator) {
 	TCalculator m;
 	m.SetExpr("2++2");
-
 	ASSERT_ANY_THROW(m.Calc());
 }
